@@ -1,3 +1,6 @@
+# DS ignore plan
+.DS_Store
+
 # Logs
 logs
 *.log
