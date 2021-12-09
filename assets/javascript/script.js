@@ -6,7 +6,7 @@
 
     // Get the city from the button's data attribute
 
-// Fetch the geo data (lat, lon) (city name)
+// Fetch the geo data (lat, lon) (city name) http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
 
     // q = Name of the city as a query string (key value pairs)
     // limit = 5 cities (optional parameter)
