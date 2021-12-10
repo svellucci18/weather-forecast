@@ -29,17 +29,12 @@
                 <h4 class="card-header text-uppercase">Where?</h4>
                 <form id="user-form" class="card-body">
                 <label class="form-label" for="username">City</label>
-                <input name="username" id="username" type="text" autofocus="true" class="input-field" />
-                <button type="submit" class="btn blue darken-2">Search</button>
+                <input id="cityInput" type="text" autofocus="true" class="input-field" />
+                <button id="searchBtn" class="btn blue darken-2">Search</button>
                 </form>
             </div>
             <div class="card">
                 <div id="city-buttons" class="card-body">
-                    <button data-city="Seattle" class="btn blue darken-2">Seattle</button>
-                    <br>
-                    <button data-city="Tacoma" class="btn blue darken-2">Tacoma</button>
-                    <br>
-                    <button data-city="San Diego" class="btn blue darken-2">San Diego</button>
                 </div>
                 </div>  
         </div>
@@ -47,18 +42,16 @@
         <div class="col s9">
             <!-- Weather Dashboard  -->
             <!-- Day -->
-            <ul class="collection with-header">
-                <li class="collection-header"><h4>Seattle 12/12/21</h4></li>
-                <li class="collection-item">Temp:</li>
-                <li class="collection-item">Wind:</li>
-                <li class="collection-item">Humidity:</li>
-                <li class="collection-item">UV Index:</li>
+            <div id="dailyContainer">
+            <ul id="dailyWeather" class="collection with-header">
+                
             </ul>
+            </div>
             <!-- 5-day forecast -->
             <div class="row">
-                <div class="col s1">
+                <div class="col s2">
                     <div class="row">
-                        <div class="col s12 m5">
+                        <div class="col s12">
                             <div class="card-panel blue darken-2">
                             <span class="white-text">I am a very simple card. I am good at containing small bits of information.
                             I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
@@ -67,9 +60,9 @@
                         </div>
                         </div>
                 </div>
-                <div class="col s1">
+                <div class="col s2">
                     <div class="row">
-                        <div class="col s12 m5">
+                        <div class="col s12">
                             <div class="card-panel blue darken-2">
                             <span class="white-text">I am a very simple card. I am good at containing small bits of information.
                             I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
@@ -78,9 +71,9 @@
                         </div>
                         </div>
                 </div>
-                <div class="col s1">
+                <div class="col s2">
                     <div class="row">
-                        <div class="col s12 m5">
+                        <div class="col s12">
                             <div class="card-panel blue darken-2">
                             <span class="white-text">I am a very simple card. I am good at containing small bits of information.
                             I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
@@ -89,9 +82,9 @@
                         </div>
                         </div>
                 </div>
-                <div class="col s1">
+                <div class="col s2">
                     <div class="row">
-                        <div class="col s12 m5">
+                        <div class="col s12">
                             <div class="card-panel blue darken-2">
                             <span class="white-text">I am a very simple card. I am good at containing small bits of information.
                             I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
@@ -100,9 +93,9 @@
                         </div>
                         </div>
                 </div>
-                <div class="col s1">
+                <div class="col s2">
                     <div class="row">
-                        <div class="col s12 m5">
+                        <div class="col s12">
                             <div class="card-panel blue darken-2">
                             <span class="white-text">I am a very simple card. I am good at containing small bits of information.
                             I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
@@ -117,9 +110,9 @@
         
     </div>
 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="./assets/js/script.js"></script>   
+    <script src="./assets/javascript/script.js"></script>   
 </body>
 </html>
