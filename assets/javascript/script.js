@@ -1,19 +1,18 @@
 // From the <form> element, listen to the "submit"
 var searchBtn = $("#searchBtn");
-
+// From the <button> container element, listen to the <button> "click"
 searchBtn.click(renderWeather);
 
-    // Select <input>, get its value, and provide it to the geo API
-
-// From the <button> container element, listen to the <button> "click"
-
-    // Get the city from the button's data attribute
+// Select <input>, get its value, and provide it to the geo API
+var cityName = $("#cityInput");  
 
 // Fetch the geo data (lat, lon) (city name) http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
 function geoData(cityName){
 
     var url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=949ac09a20eff646d7416ecc12078edc`;
-
+    // q = Name of the city as a query string (key value pairs)
+    // limit = 5 cities (optional parameter)
+    // appid = Your custom API key (make an account and then add it here) 949ac09a20eff646d7416ecc12078edc
     fetch( url )
         .then(function(response) {
             return response.json();
@@ -28,22 +27,13 @@ function geoData(cityName){
 
 }
 
-    // q = Name of the city as a query string (key value pairs)
-    // limit = 5 cities (optional parameter)
-    // appid = Your custom API key (make an account and then add it here) 949ac09a20eff646d7416ecc12078edc
-
+    
 // Fetch the one call weather data
-
-    // lat
-    // lon
-    // appid
-    // units = imperial
-    // exclude = minutely,hourly
-
 function oneCall(lat,lon){
 
     var url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=949ac09a20eff646d7416ecc12078edc`;
-
+    // units = imperial
+    // exclude = minutely,hourly
     fetch( url )
         .then(function(response) {
             return response.json();
@@ -69,8 +59,6 @@ function oneCall(lat,lon){
 }
     
 // Print/Render the weather data to the page and save searches
-var cityName = $("#cityInput");
-
 function renderWeather(event){
     console.log(event.target);
     geoData(cityName.val());
@@ -83,6 +71,7 @@ function renderWeather(event){
     )
 };
 
+// Get the city from the button's innertext
 function renderWeather2(event){
     console.log(event.target);
     geoData(event.target.innerText);
