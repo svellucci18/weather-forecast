@@ -59,10 +59,10 @@ function oneCall(lat,lon){
             dailyWeatherEl.html("");
             dailyWeatherEl.append( 
                 `<li class="collection-header"><h4>${cityName.val()} ${moment().format("dddd, MMMM Do")}</h4></li>
-                <li class="collection-item">Temp: ${data.daily[0].temp.max}</li>
-                <li class="collection-item">Wind:</li>
-                <li class="collection-item">Humidity:</li>
-                <li class="collection-item">UV Index:</li>`);
+                <li class="collection-item">Temp: ${Math.round((data.daily[0].temp.day -273.15)*(9/5)+32)} °F</li>
+                <li class="collection-item">Wind: ${data.daily[0].wind_speed} MPH</li>
+                <li class="collection-item">Humidity: ${data.daily[0].humidity} %</li>
+                <li class="collection-item">UV Index: ${data.daily[0].uvi}</li>`);
 
         })
 
@@ -78,7 +78,7 @@ function renderWeather(event){
     var cityBtns = $("#city-buttons")
 
     cityBtns.append(
-        `<button data-city=${cityName.val()} class=" prevCity btn blue darken-2">${cityName.val()}</button>
+        `<button data-city=${cityName.val()} class="prevCity btn blue darken-2">${cityName.val()}</button>
         <br>`
     )
 };
