@@ -93,3 +93,4 @@ var previousCityBtn = document.querySelectorAll(".prevCity");
 for (var i=0; i < previousCityBtn.length; i++) {
     previousCityBtn[i].click(renderWeather2);
 }
+
