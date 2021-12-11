@@ -25,7 +25,7 @@ function geoData(cityName){
 
         })
 
-}
+};
 
     
 // Fetch the one call weather data
@@ -56,10 +56,11 @@ function oneCall(lat,lon){
 
         })
 
-}
+};
     
 // Print/Render the weather data to the page and save searches
 function renderWeather(event){
+    event.preventDefault();
     console.log(event.target);
     geoData(cityName.val());
 
@@ -81,5 +82,5 @@ function renderWeather2(event){
 var previousCityBtn = document.querySelectorAll(".prevCity");
 for (var i=0; i < previousCityBtn.length; i++) {
     previousCityBtn[i].click(renderWeather2);
-}
+};
 
