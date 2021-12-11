@@ -1,3 +1,7 @@
-.prevCity {
+.btn {
     margin: 5px;
+}
+
+.forecastCards {
+    list-style-type: none;
 }
