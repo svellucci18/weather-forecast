@@ -19,7 +19,7 @@ function geoData(cityName){
         })
         .then(function(data) {
 
-            console.log(data);
+            // console.log(data);
 
             oneCall( data[0].lat, data[0].lon ); // Call oneCall here so that we are waiting for the data from the city name
 
@@ -40,7 +40,7 @@ function oneCall(lat,lon){
         })
         .then(function(data) {
 
-            console.log(data);
+            // console.log(data);
             
             // Render the day of weather
             var dailyWeatherEl = $("#dailyWeather");
@@ -78,30 +78,75 @@ function oneCall(lat,lon){
         })
 
 };
-    
+
+
 // Print/Render the weather data to the page and save searches
 function renderWeather(event){
+    // stops the page from refreshing automatically
     event.preventDefault();
-    console.log(event.target);
+    // console.log(event.target);
+    
+    // Calls geoData on city 
     geoData(cityName.val());
 
-    var cityBtns = $("#city-buttons")
+    // save searches
+    saveCities();
 
+};
+
+// Move the creation of the cityBtns into a function
+// Declare variables
+var cityBtns = $("#city-buttons")
+var prevCitySearch = cityName.val(); 
+var prevCities = {
+    searchHistory: prevCitySearch,
+};
+
+function saveCities() {
     cityBtns.append(
         `<button data-city=${cityName.val()} class="prevCity btn blue darken-2">${cityName.val()}</button>
         <br>`
     )
-};
+
+    // Event Listener for the new city buttons
+    var previousCityBtns = document.querySelectorAll(".prevCity");
+    console.log(previousCityBtns);
+    for (var i=0; i < previousCityBtns.length; i++) {
+        previousCityBtns[i].click(renderWeatherAgain);
+    };
+    
+    // Store prevCitySearch searches
+    localStorage.setItem(prevCitySearch,JSON.stringify(prevCities));
+}
+
+
 
 // Get the city from the button's innertext
-function renderWeather2(event){
+function renderWeatherAgain(event){
     console.log(event.target);
+    event.preventDefault();
+    console.log(event.target);
+    console.log("clicking prevCity");
     geoData(event.target.innerText);
 };
 
-// Event Listener for the new city buttons
-var previousCityBtn = document.querySelectorAll(".prevCity");
-for (var i=0; i < previousCityBtn.length; i++) {
-    previousCityBtn[i].click(renderWeather2);
+
+
+// get previous city searches from local storage
+function getPrevCities() {
+    var prevCitiesData = [];
+
+    for (var i=0; i<5; i++) {
+        //grab the data
+        var prevCities = JSON.parse(localStorage.getItem(i));
+        // console.log(prevCities);
+
+        // Does local storage contain data
+        if (prevCities) {
+            prevCitiesData.push(prevCities);
+        };
+    }
+    return prevCitiesData;
 };
 
+getPrevCities();
