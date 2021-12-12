@@ -42,8 +42,7 @@ function oneCall(lat,lon){
 
             console.log(data);
             
-            // Render the weather data to the page
-            // Print the daily weather
+            // Render the day of weather
             var dailyWeatherEl = $("#dailyWeather");
             var forecastEl = $("#forecastContainer")
 
@@ -56,80 +55,25 @@ function oneCall(lat,lon){
                 <li class="collection-item">UV Index: ${data.daily[0].uvi}</li>
                 `);
 
+            // Render the 5-day forecast
             forecastEl.html("");
+            for (var i=1; i<6; i++) {
             forecastEl.append(`
                 <div class="col s2.5">
                     <div class="row">
                         <div class="col s12">
                             <div class="card-panel blue darken-2">
                             <span class="white-text forecastCards">
-                            <li class="collection-header"><h5>${moment().add(1,'days').format("M/D/YYYY")}</h5></li>
-                            <li class="collection-item">Temp: ${Math.round((data.daily[1].temp.day -273.15)*(9/5)+32)} °F</li>
-                            <li class="collection-item">Wind: ${data.daily[1].wind_speed} MPH</li>
-                            <li class="collection-item">Humidity: ${data.daily[1].humidity} %</li>
+                            <li class="collection-header"><h5>${moment().add(i,'days').format("M/D/YYYY")}</h5></li>
+                            <li class="collection-item">Temp: ${Math.round((data.daily[i].temp.day -273.15)*(9/5)+32)} °F</li>
+                            <li class="collection-item">Wind: ${data.daily[i].wind_speed} MPH</li>
+                            <li class="collection-item">Humidity: ${data.daily[i].humidity} %</li>
                             </span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col s2.5">
-                    <div class="row">
-                        <div class="col s12">
-                            <div class="card-panel blue darken-2">
-                            <span class="white-text forecastCards">
-                            <li class="collection-header"><h5>${moment().add(2,'days').format("M/D/YYYY")}</h5></li>
-                            <li class="collection-item">Temp: ${Math.round((data.daily[2].temp.day -273.15)*(9/5)+32)} °F</li>
-                            <li class="collection-item">Wind: ${data.daily[2].wind_speed} MPH</li>
-                            <li class="collection-item">Humidity: ${data.daily[2].humidity} %</li>
-                            </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s2.5">
-                    <div class="row">
-                        <div class="col s12">
-                            <div class="card-panel blue darken-2">
-                            <span class="white-text forecastCards">
-                            <li class="collection-header"><h5>${moment().add(3,'days').format("M/D/YYYY")}</h5></li>
-                            <li class="collection-item">Temp: ${Math.round((data.daily[3].temp.day -273.15)*(9/5)+32)} °F</li>
-                            <li class="collection-item">Wind: ${data.daily[3].wind_speed} MPH</li>
-                            <li class="collection-item">Humidity: ${data.daily[3].humidity} %</li>
-                            </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s2.5">
-                    <div class="row">
-                        <div class="col s12">
-                            <div class="card-panel blue darken-2">
-                            <span class="white-text forecastCards">
-                            <li class="collection-header"><h5>${moment().add(4,'days').format("M/D/YYYY")}</h5></li>
-                            <li class="collection-item">Temp: ${Math.round((data.daily[4].temp.day -273.15)*(9/5)+32)} °F</li>
-                            <li class="collection-item">Wind: ${data.daily[4].wind_speed} MPH</li>
-                            <li class="collection-item">Humidity: ${data.daily[4].humidity} %</li>
-                            </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s2.5">
-                    <div class="row">
-                        <div class="col s12">
-                            <div class="card-panel blue darken-2">
-                            <span class="white-text forecastCards">
-                            <li class="collection-header"><h5>${moment().add(5,'days').format("M/D/YYYY")}</h5></li>
-                            <li class="collection-item">Temp: ${Math.round((data.daily[5].temp.day -273.15)*(9/5)+32)} °F</li>
-                            <li class="collection-item">Wind: ${data.daily[5].wind_speed} MPH</li>
-                            <li class="collection-item">Humidity: ${data.daily[5].humidity} %</li>
-                            </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-            `);
+            `)};
 
         })
 
