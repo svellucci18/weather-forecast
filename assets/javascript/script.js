@@ -40,7 +40,7 @@ function oneCall(lat,lon){
         })
         .then(function(data) {
 
-            // console.log(data);
+            console.log(data);
             
             // Render the day of weather
             var dailyWeatherEl = $("#dailyWeather");
@@ -48,7 +48,7 @@ function oneCall(lat,lon){
 
             dailyWeatherEl.html("");
             dailyWeatherEl.append(`
-                <li class="collection-header"><h4>${cityName.val()} ${moment().format("dddd, MMMM Do")}</h4></li>
+                <li class="collection-header"><h4>${cityName.val()} <img src="http://openweathermap.org/img/w/${data.daily[0].weather[0].icon}.png" alt="weather icon"> ${moment().format("dddd, MMMM Do")}</h4></li>
                 <li class="collection-item">Temp: ${Math.round((data.daily[0].temp.day -273.15)*(9/5)+32)} °F</li>
                 <li class="collection-item">Wind: ${data.daily[0].wind_speed} MPH</li>
                 <li class="collection-item">Humidity: ${data.daily[0].humidity} %</li>
@@ -65,6 +65,7 @@ function oneCall(lat,lon){
                             <div class="card-panel blue darken-2">
                             <span class="white-text forecastCards">
                             <li class="collection-header"><h5>${moment().add(i,'days').format("M/D/YYYY")}</h5></li>
+                            <li class="collection-header"><img src="http://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png" alt="weather icon"></li>
                             <li class="collection-item">Temp: ${Math.round((data.daily[i].temp.day -273.15)*(9/5)+32)} °F</li>
                             <li class="collection-item">Wind: ${data.daily[i].wind_speed} MPH</li>
                             <li class="collection-item">Humidity: ${data.daily[i].humidity} %</li>
@@ -103,13 +104,13 @@ var prevCities = {
 };
 
 function saveCities() {
+    // And previous search buttons to cityBtns container
     cityBtns.append(
         `<button data-city=${cityName.val()} class="prevCity btn blue darken-2">${cityName.val()}</button>
         <br>`
     )
-
     // Event Listener for the new city buttons
-    var previousCityBtns = document.querySelectorAll(".prevCity");
+    var previousCityBtns = document.getElementsByClassName("prevCity");
     console.log(previousCityBtns);
     for (var i=0; i < previousCityBtns.length; i++) {
         previousCityBtns[i].click(renderWeatherAgain);
