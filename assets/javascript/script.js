@@ -150,7 +150,7 @@ function getPrevCities() {
     for (var i=0; i<5; i++) {
         //grab the data
         var prevCities = JSON.parse(localStorage.getItem(i));
-        console.log(prevCities);
+        // console.log(prevCities);
 
         // Does local storage contain data
         if (prevCities) {
