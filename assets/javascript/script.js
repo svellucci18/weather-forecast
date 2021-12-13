@@ -116,6 +116,7 @@ var prevCitySearch = cityName.val();
 var prevCities = {
     searchHistory: prevCitySearch,
 };
+var previousCityBtns = document.getElementsByClassName("prevCity");
 
 function saveCities() {
     // And previous search buttons to cityBtns container
@@ -123,12 +124,9 @@ function saveCities() {
         `<button data-city=${cityName.val()} class="prevCity btn blue darken-2">${cityName.val()}</button>
         <br>`
     )
+    
     // Event Listener for the new city buttons
-    var previousCityBtns = document.getElementsByClassName("prevCity");
-    console.log(previousCityBtns);
-    for (var i=0; i < previousCityBtns.length; i++) {
-        previousCityBtns[i].click(renderWeatherAgain);
-    };
+    cityBtns.click(renderWeatherAgain);
     
     // Store prevCitySearch searches
     localStorage.setItem(prevCitySearch,JSON.stringify(prevCities));
@@ -137,13 +135,12 @@ function saveCities() {
 
 // Get the city from the button's innertext
 function renderWeatherAgain(event){
-    console.log(event.target);
     event.preventDefault();
-    console.log(event.target);
-    console.log("clicking prevCity");
+    console.log(event.target.innerText);
+    $("#cityInput") = "";
+    $("#cityInput").append(event.target.innerText);
     geoData(event.target.innerText);
 };
-
 
 
 // get previous city searches from local storage
