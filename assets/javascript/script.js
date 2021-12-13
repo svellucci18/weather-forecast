@@ -110,15 +110,14 @@ function renderWeather(event){
 };
 
 // Move the creation of the cityBtns into a function
-// Declare variables
 var cityBtns = $("#city-buttons")
-var prevCitySearch = cityName.val(); 
-var prevCities = {
-    searchHistory: prevCitySearch,
-};
 var previousCityBtns = document.getElementsByClassName("prevCity");
 
 function saveCities() {
+    var prevCitySearch = cityName.val(); 
+    var prevCities = {
+        searchHistory: prevCitySearch,
+    };
     // And previous search buttons to cityBtns container
     cityBtns.append(
         `<button data-city=${cityName.val()} class="prevCity btn blue darken-2">${cityName.val()}</button>
@@ -136,11 +135,11 @@ function saveCities() {
 // Get the city from the button's innertext
 function renderWeatherAgain(event){
     event.preventDefault();
-    console.log(event.target.innerText);
+    // console.log(event.target.innerText);
     // $("#cityInput") = "";
-    $("#cityInput").append(event.target.innerText);
+    $("#cityInput").append(event.target.innerText); //This isn't doing what I want it to do
     geoData(event.target.innerText);
-    console.log(cityName.val());
+    // console.log(cityName.val());
 };
 
 
@@ -151,7 +150,7 @@ function getPrevCities() {
     for (var i=0; i<5; i++) {
         //grab the data
         var prevCities = JSON.parse(localStorage.getItem(i));
-        // console.log(prevCities);
+        console.log(prevCities);
 
         // Does local storage contain data
         if (prevCities) {
@@ -161,4 +160,21 @@ function getPrevCities() {
     return prevCitiesData;
 };
 
-getPrevCities();
+// checks if local storage was empty and if not populates buttons with previous searches
+function populatePrevCitySearches() {
+    // Calls getPrevCities to check if data is stored
+    var storedCities = getPrevCities();
+
+    if (storedCities.length == 0) {
+        return
+    }
+    
+    // Assign Data to buttons
+    
+    storedCities.map(storedCity => { // storedCity is being declared in this anonymous function
+        $(`button [data-city='${storedCity.prevCitySearch}']`).val(storedCity.prevCitySearch);
+    })
+    
+}
+
+populatePrevCitySearches();
