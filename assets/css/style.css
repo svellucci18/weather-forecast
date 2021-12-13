@@ -5,3 +5,15 @@
 .forecastCards {
     list-style-type: none;
 }
+
+.favorable {
+    color: green;
+}
+
+.moderate {
+    color: gold;
+}
+
+.severe {
+    color: maroon;
+}

@@ -52,8 +52,22 @@ function oneCall(lat,lon){
                 <li class="collection-item">Temp: ${Math.round((data.daily[0].temp.day -273.15)*(9/5)+32)} °F</li>
                 <li class="collection-item">Wind: ${data.daily[0].wind_speed} MPH</li>
                 <li class="collection-item">Humidity: ${data.daily[0].humidity} %</li>
-                <li class="collection-item">UV Index: ${data.daily[0].uvi}</li>
                 `);
+
+            // Modify text color of UV index depending on value
+            if (data.daily[0].uvi < 2) {
+                dailyWeatherEl.append(`
+                <li class="collection-item favorable">UV Index: ${data.daily[0].uvi}</li>
+                `);
+            } else if (data.daily[0].uvi < 5) {
+                dailyWeatherEl.append(`
+                <li class="collection-item moderate">UV Index: ${data.daily[0].uvi}</li>
+                `);
+            } else {
+                dailyWeatherEl.append(`
+                <li class="collection-item severe">UV Index: ${data.daily[0].uvi}</li>
+                `);
+            };
 
             // Render the 5-day forecast
             forecastEl.html("");
@@ -119,7 +133,6 @@ function saveCities() {
     // Store prevCitySearch searches
     localStorage.setItem(prevCitySearch,JSON.stringify(prevCities));
 }
-
 
 
 // Get the city from the button's innertext
