@@ -137,9 +137,10 @@ function saveCities() {
 function renderWeatherAgain(event){
     event.preventDefault();
     console.log(event.target.innerText);
-    $("#cityInput") = "";
+    // $("#cityInput") = "";
     $("#cityInput").append(event.target.innerText);
     geoData(event.target.innerText);
+    console.log(cityName.val());
 };
 
 
