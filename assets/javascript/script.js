@@ -4,12 +4,13 @@ var searchBtn = $("#searchBtn");
 searchBtn.click(renderWeather);
 
 // Select <input>, get its value, and provide it to the geo API
-var cityName = $("#cityInput");  
+var cityNameEl = $("#cityInput");  
+var cityName = "";
 
 // Fetch the geo data (lat, lon) (city name) http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
-function geoData(cityName){
+function geoData(city){
 
-    var url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=949ac09a20eff646d7416ecc12078edc`;
+    var url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=949ac09a20eff646d7416ecc12078edc`;
     // q = Name of the city as a query string (key value pairs)
     // limit = 5 cities (optional parameter)
     // appid = Your custom API key (make an account and then add it here) 949ac09a20eff646d7416ecc12078edc
@@ -30,7 +31,7 @@ function geoData(cityName){
     
 // Fetch the one call weather data
 function oneCall(lat,lon){
-
+    
     var url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=949ac09a20eff646d7416ecc12078edc`;
     // units = imperial
     // exclude = minutely,hourly
@@ -47,8 +48,9 @@ function oneCall(lat,lon){
             var forecastEl = $("#forecastContainer")
 
             dailyWeatherEl.html("");
+            console.log(cityName);
             dailyWeatherEl.append(`
-                <li class="collection-header"><h4>${cityName.val()} <img src="http://openweathermap.org/img/w/${data.daily[0].weather[0].icon}.png" alt="weather icon"> ${moment().format("dddd, MMMM Do")}</h4></li>
+                <li class="collection-header"><h4>${cityName} <img src="http://openweathermap.org/img/w/${data.daily[0].weather[0].icon}.png" alt="weather icon"> ${moment().format("dddd, MMMM Do")}</h4></li>
                 <li class="collection-item">Temp: ${Math.round((data.daily[0].temp.day -273.15)*(9/5)+32)} °F</li>
                 <li class="collection-item">Wind: ${data.daily[0].wind_speed} MPH</li>
                 <li class="collection-item">Humidity: ${data.daily[0].humidity} %</li>
@@ -101,8 +103,10 @@ function renderWeather(event){
     event.preventDefault();
     // console.log(event.target);
     
+    cityName = cityNameEl.val()
+    console.log(cityName);
     // Calls geoData on city 
-    geoData(cityName.val());
+    geoData(cityName);
 
     // save searches
     saveCities();
@@ -114,13 +118,13 @@ var cityBtns = $("#city-buttons")
 var previousCityBtns = document.getElementsByClassName("prevCity");
 
 function saveCities() {
-    var prevCitySearch = cityName.val(); 
+    var prevCitySearch = cityNameEl.val(); 
     var prevCities = {
         searchHistory: prevCitySearch,
     };
     // And previous search buttons to cityBtns container
     cityBtns.append(
-        `<button data-city=${cityName.val()} class="prevCity btn blue darken-2">${cityName.val()}</button>
+        `<button data-city=${cityNameEl.val()} class="prevCity btn blue darken-2">${cityNameEl.val()}</button>
         <br>`
     )
     
@@ -129,17 +133,19 @@ function saveCities() {
     
     // Store prevCitySearch searches
     localStorage.setItem(prevCitySearch,JSON.stringify(prevCities));
+    console.log(localStorage);
 }
 
 
 // Get the city from the button's innertext
 function renderWeatherAgain(event){
     event.preventDefault();
-    // console.log(event.target.innerText);
+    console.log(event.target.innerText);
     // $("#cityInput") = "";
     $("#cityInput").append(event.target.innerText); //This isn't doing what I want it to do
-    geoData(event.target.innerText);
-    // console.log(cityName.val());
+    cityName = event.target.innerText;
+    geoData(cityName);
+    console.log(cityNameEl.val());
 };
 
 
@@ -170,7 +176,6 @@ function populatePrevCitySearches() {
     }
     
     // Assign Data to buttons
-    
     storedCities.map(storedCity => { // storedCity is being declared in this anonymous function
         $(`button [data-city='${storedCity.prevCitySearch}']`).val(storedCity.prevCitySearch);
     })
