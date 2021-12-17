@@ -116,15 +116,24 @@ function renderWeather(event){
 // Move the creation of the cityBtns into a function
 var cityBtns = $("#city-buttons")
 var previousCityBtns = document.getElementsByClassName("prevCity");
+var prevCitiesData = []; 
+
+// check local storage for previous city searches
+if (localStorage.getItem("storedCity")) {
+    prevCitiesData = JSON.parse(localStorage.getItem("storedCity"))
+    populatePrevCitySearches();
+}
 
 function saveCities() {
     var prevCitySearch = cityNameEl.val(); 
-    var prevCities = {
-        searchHistory: prevCitySearch,
-    };
+
     // And previous search buttons to cityBtns container
+    if (prevCitiesData.includes(prevCitySearch)) {
+        return
+    }
+
     cityBtns.append(
-        `<button data-city=${cityNameEl.val()} class="prevCity btn blue darken-2">${cityNameEl.val()}</button>
+        `<button data-city=${prevCitySearch} class="prevCity btn blue darken-2">${prevCitySearch}</button>
         <br>`
     )
     
@@ -132,8 +141,9 @@ function saveCities() {
     cityBtns.click(renderWeatherAgain);
     
     // Store prevCitySearch searches
-    localStorage.setItem(prevCitySearch,JSON.stringify(prevCities));
-    console.log(localStorage);
+    prevCitiesData.push(prevCitySearch);
+    localStorage.setItem("storedCity",JSON.stringify(prevCitiesData));
+    console.log(prevCitiesData);
 }
 
 
@@ -149,37 +159,20 @@ function renderWeatherAgain(event){
 };
 
 
-// get previous city searches from local storage
-function getPrevCities() {
-    var prevCitiesData = [];
-
-    for (var i=0; i<5; i++) {
-        //grab the data
-        var prevCities = JSON.parse(localStorage.getItem(i));
-        // console.log(prevCities);
-
-        // Does local storage contain data
-        if (prevCities) {
-            prevCitiesData.push(prevCities);
-        };
-    }
-    return prevCitiesData;
-};
-
 // checks if local storage was empty and if not populates buttons with previous searches
 function populatePrevCitySearches() {
-    // Calls getPrevCities to check if data is stored
-    var storedCities = getPrevCities();
-
-    if (storedCities.length == 0) {
-        return
-    }
     
     // Assign Data to buttons
-    storedCities.map(storedCity => { // storedCity is being declared in this anonymous function
-        $(`button [data-city='${storedCity.prevCitySearch}']`).val(storedCity.prevCitySearch);
+    prevCitiesData.map(index => { // index is being declared in this anonymous function
+        // And previous search buttons to cityBtns container
+        cityBtns.append(
+            `<button data-city=${index} class="prevCity btn blue darken-2">${index}</button>
+            <br>`
+        )
+        
     })
+        // Event Listener for the new city buttons
+        cityBtns.click(renderWeatherAgain);
     
 }
 
-populatePrevCitySearches();
